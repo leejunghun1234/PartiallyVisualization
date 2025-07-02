@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partially Visualization</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="./하마4.png">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three/examples/jsm/",
+                "chart.js": "https://cdn.jsdelivr.net/npm/chart.js/+esm"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <div id="root">
+            <div id="render-target"></div>
+
+            <div id="right-panel">
+                <div id="cat-buttons">
+                    <button id="quant-button" class="cat-button">Quant Num</button>
+                    <button id="chart-button" class="cat-button">Quant chart</button>
+                </div>
+
+                <div class="cat-divs"  id="info-divs">
+                    <div class="info-target" id="info-target"></div>
+                </div>
+
+                <div class= "cat-divs hide" id="element-divs">
+                    <div class="info-target" id="element-target"></div>
+                </div>
+
+
+                <div id="busan-panel">
+                    <button class="busan-button" id="import-button">Input Folder</button>
+                    <button class="busan-button">Full Screen</button>
+                    <button class="busan-button">Full Screen</button>
+                    <button class="busan-button">Full Screen</button>
+                </div>
+            </div>
+
+            <div id="down-panel">
+                <div id="select-button">
+                    <button id = "wall-select">Inside</button>
+                    <button id = "curtainWall-select">Outside</button>
+                    <button id = "floor-select">Done</button>
+                </div>
+                <div id="slider-target">
+                    <button id="decrease-1" class="inorde"><</button>
+                    <input type="range" id="fully-slider" class="slider">
+                    <button id="increase-1" class="inorde">></button>
+                    <button id="time-button">TIME</button>
+                </div>
+                <div id="slider-buttons">
+                    <button id="rewind"><</button>
+                    <button id="pause">II</button>
+                    <button id="play">></button>
+                    <button id="fast-forward">>></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal" id="dateTimeModal">
+        <div class="modal-content">
+            <h3 id = "modal-head">날짜 & 시간 선택</h3>
+            <div id = "input-container">
+                <input type="date" id="dateInput">
+                <input type="time" id="timeInput">
+            </div>
+            
+            <div id = "close-container">
+                <button id = "okay-button" class="f close-btn">확인</button>
+                <button id = "cancel-button" class="f close-btn">취소</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
