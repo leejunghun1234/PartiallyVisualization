@@ -94,7 +94,7 @@ export function initPartialClipping(scene, meshDict, timeJson, timeKeys, allGrou
 
     const insideButton = document.getElementById("inside-button");
     const outsideButton = document.getElementById("outside-button");
-    const planeButton = document.getElementById("planeb  -button");
+    const planeButton = document.getElementById("plane-button");
     const slider = document.getElementById("partially-slider");
 
     let insideVisible = false;
