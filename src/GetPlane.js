@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-export function GetPlanes(box, scene) {
+export function getPlanes(box, scene) {
     let box3;
 
     if (Array.isArray(box)) {

@@ -89,12 +89,12 @@ export function initPartialClipping(scene, meshDict, timeJson, timeKeys, allGrou
         return raycaster.intersectObjects(cons, true);
     }
 
-    renderer.localClippintEnabled = true;
+    renderer.localClippingEnabled = true;
     MakeClipping(latestElem, allGroup, planes, inversePlanes, true);
 
     const insideButton = document.getElementById("inside-button");
     const outsideButton = document.getElementById("outside-button");
-    const planeButton = document.getElementById("plane-button");
+    const planeButton = document.getElementById("planeb  -button");
     const slider = document.getElementById("partially-slider");
 
     let insideVisible = false;
@@ -105,7 +105,7 @@ export function initPartialClipping(scene, meshDict, timeJson, timeKeys, allGrou
         if (insideButton.classList.contains("Visible")) {
             insideButton.style.backgroundColor = "#4CAF50";
             const currentIndex = parseInt(slider.value, 10);
-            const currentTime = timekeys[currentIndex];
+            const currentTime = timeKeys[currentIndex];
             updateMeshes(currentTime);
         } else {
             insideButton.style.backgroundColor = "#263238";

@@ -46,13 +46,14 @@
 
             <div id="down-panel">
                 <div id="select-button">
-                    <button id = "wall-select">Inside</button>
-                    <button id = "curtainWall-select">Outside</button>
-                    <button id = "floor-select">Done</button>
+                    <button id = "inside-button">Inside</button>
+                    <button id = "outside-button">Outside</button>
+                    <button id = "plane-button">Plane</button>
+                    <button id = "done-button">Done</button>
                 </div>
                 <div id="slider-target">
                     <button id="decrease-1" class="inorde"><</button>
-                    <input type="range" id="fully-slider" class="slider">
+                    <input type="range" id="partially-slider" class="slider">
                     <button id="increase-1" class="inorde">></button>
                     <button id="time-button">TIME</button>
                 </div>
@@ -65,7 +66,7 @@
             </div>
         </div>
     </div>
-    <div class="modal-overlay" id="modalOverlay"></div>
+    <!-- <div class="modal-overlay" id="modalOverlay"></div>
     <div class="modal" id="dateTimeModal">
         <div class="modal-content">
             <h3 id = "modal-head">날짜 & 시간 선택</h3>
@@ -79,6 +80,59 @@
                 <button id = "cancel-button" class="f close-btn">취소</button>
             </div>
         </div>
-    </div>
+    </div> -->
+    <script type="module">
+        import {main} from './main.js';
+
+        const inputButton = document.getElementById("import-button");
+        let shapeLog, timeLog;
+        
+        inputButton.addEventListener('click', async () => {
+            try {
+                const dirHandle = await window.showDirectoryPicker();
+                for await (const [name, handle] of dirHandle.entries()) {
+                    if (handle.kind !== 'file') continue;
+
+                    const file = await handle.getFile();
+
+                    // JSON 처리
+                    if (name.endsWith('.json')) {
+                        try {
+                            const json = await LoadJson(file);
+                            if (name.includes("shapeLogs")) shapeLog = json;
+                            if (name.includes("timeLogs")) timeLog = json;
+                        } catch (err) {
+                            console.error(`JSON 파싱 실패: ${name}`);
+                        }
+                    }
+                }
+
+                main(shapeLog, timeLog);
+            } catch (err) {
+                console.error(err);
+            }
+        });
+
+        async function LoadJson(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+
+                reader.onload = (event) => {
+                    try {
+                        const json = JSON.parse(event.target.result);
+                        resolve(json);
+                    } catch (error) {
+                        reject(`❌ JSON 파싱 실패: ${file.name}`);
+                    }
+                };
+
+                reader.onerror = () => {
+                    reject(`❌ 파일 읽기 실패: ${file.name}`);
+                };
+
+                reader.readAsText(file);
+            });
+        }
+    </script>
 </body>
 </html>

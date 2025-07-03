@@ -1,4 +1,8 @@
 import * as THREE from "three";
+import { MapControls } from "three/addons/controls/MapControls.js";
+import { loadMeshes } from "./src/meshLoader.js";
+import { initPartialClipping } from "./src/initPartial.js";
+import { sliderControls } from "./src/slider.js";
 
 export function main(
     shapeLog,
@@ -78,6 +82,9 @@ export function main(
 
     const { allGroup, meshDict } = loadMeshes(shapeLog, scene, 0.2);
     const timeKeys = Object.keys(timeLog).sort();
+    
+    initPartialClipping(scene, meshDict, timeLog, timeKeys, allGroup, renderer, camera, controls);
+    sliderControls("partially-slider", timeKeys, timeLog, allGroup, meshDict, true);
 
     animate();
 
