@@ -1,3 +1,5 @@
+import { sliderEvent } from "./sliderEvent.js";
+
 export function sliderControls(sliderName, timeKeys, timeJson, allGroup, meshDict, isPartial) {
     const slider = document.getElementById(sliderName);
     slider.max = timeKeys.length - 1;
@@ -15,30 +17,31 @@ export function sliderControls(sliderName, timeKeys, timeJson, allGroup, meshDic
         "Windows": false,
         "Doors": false,
     }
-
+    console.log(timeJson);
     updateMeshes(currentTime);
-    if (!isPartial) {
-        updateInfos(currentTime);
-        makeCategoryList(buttonState);
-    }
-
+    
+    slider.removeEventListener('input', sliderEvent);
     slider.addEventListener('input', () => {
-        const currentIndex = parseInt(slider.value, 10);
-        const currentTime = timeKeys[currentIndex];
-        updateMeshes(currentTime);
-        if (!isPartial) {
-            updateInfos(currentTime);
-            makeCategoryList(buttonState);
-        }
-        if (isPartial) {
-            const insideButton = document.getElementById("inside-button");
-            
-            if (!insideButton.classList.contains("Visible")) {
-                insideButton.classList.add("Visible");
-                insideButton.style.backgroundColor = "#4CAF50";
-            } 
-        }
+        sliderEvent(slider, timeKeys, timeJson, allGroup, meshDict, isPartial, true);
     });
+
+    // slider.addEventListener('input', () => {
+    //     const currentIndex = parseInt(slider.value, 10);
+    //     const currentTime = timeKeys[currentIndex];
+    //     updateMeshes(currentTime);
+    //     if (!isPartial) {
+    //         updateInfos(currentTime);
+    //         makeCategoryList(buttonState);
+    //     }
+    //     if (isPartial) {
+    //         const insideButton = document.getElementById("inside-button");
+            
+    //         if (!insideButton.classList.contains("Visible")) {
+    //             insideButton.classList.add("Visible");
+    //             insideButton.style.backgroundColor = "#4CAF50";
+    //         } 
+    //     }
+    // });
 
     function updateSlider(value) {
         slider.value = value;
@@ -55,8 +58,6 @@ export function sliderControls(sliderName, timeKeys, timeJson, allGroup, meshDic
             groups.visible = true;
         }
     }
-
-    
 
     function updateInfos(currentTime) {
         const timeKeysLength = timeKeys.length - 1;
@@ -118,21 +119,6 @@ export function sliderControls(sliderName, timeKeys, timeJson, allGroup, meshDic
             }
         }
     }
-
-    // slider update
-    const sliderPartially = document.getElementById("partially-slider");
-    
-    
-    function updateSliderBackground(slider) {
-        const min = slider.min || 0;
-        const max = slider.max || 100;
-        const val = (slider.value - min) / (max - min) * 100;
-        slider.style.background = `linear-gradient(to right, #263238 0%, #45a049 ${val}%, #ddd ${val}%, #ddd 100%)`;
-    }
-
-    sliderPartially.addEventListener("input", () => updateSliderBackground(sliderPartially));
-    
-    updateSliderBackground(sliderPartially);
 }
 
 function makeCategoryList(buttonState) {

@@ -3,6 +3,7 @@ import { MapControls } from "three/addons/controls/MapControls.js";
 import { loadMeshes } from "./src/meshLoader.js";
 import { initPartialClipping } from "./src/initPartial.js";
 import { sliderControls } from "./src/slider.js";
+import { DoneButtonClick } from "./src/done.js";
 
 export function main(
     shapeLog,
@@ -83,8 +84,29 @@ export function main(
     const { allGroup, meshDict } = loadMeshes(shapeLog, scene, 0.2);
     const timeKeys = Object.keys(timeLog).sort();
     
-    initPartialClipping(scene, meshDict, timeLog, timeKeys, allGroup, renderer, camera, controls);
-    sliderControls("partially-slider", timeKeys, timeLog, allGroup, meshDict, true);
+    const {planes, cons, helpers, latestElem } = initPartialClipping(scene, meshDict, timeLog, timeKeys, allGroup, renderer, camera, controls);
+    sliderControls("partially-slider", timeKeys, timeLog, allGroup, meshDict, false);
+
+    const doneButton = document.getElementById("done-button");
+    let uniqueData;
+    let allGroup2;
+    let meshDict2;
+    let valiableElemId;
+
+    doneButton.addEventListener('click', () => {
+        let box3 = makeBoxFromPlanes(planes);
+
+        cons.forEach(e => {
+            e.visible = false;
+        });
+        helpers.forEach(e => {
+            e.visible = false;
+        });
+
+        ({meshDict2, uniqueData, allGroup2, valiableElemId } = DoneButtonClick(box3, allGroup, latestElem, timeLog, timeKeys))
+        const newTimeKeys = Object.keys(uniqueData);
+        sliderControls("partially-slider", newTimeKeys, uniqueData, allGroup2, meshDict2, true);
+    });
 
     animate();
 
@@ -93,4 +115,39 @@ export function main(
         requestAnimationFrame(animate);
         renderer.render(scene, camera);
     }
-}
+
+    function makeBoxFromPlanes(planes) {
+        let max = new THREE.Vector3();
+        let min = new THREE.Vector3();
+
+        planes.forEach(plane => {
+            const normal = plane.normal;
+            const constant = plane.constant;
+
+            if (normal.x > 0.1) {
+                max.x = -constant;
+            } else if (normal.x < -0.1) {
+                min.x = -constant;
+            }
+            
+            if (normal.y > 0.1) {
+                max.y = -constant;
+            } else if (normal.y < -0.1) {
+                min.y = -constant;
+            }
+
+            if (normal.z > 0.1) {
+                max.z = -constant;
+            } else if (normal.z < -0.1) {
+                min.z = -constant;
+            }
+        });
+
+        min.x = -min.x;
+        min.y = -min.y;
+        min.z = -min.z;
+        const box0 = new THREE.Box3(min, max);
+        
+        return box0;
+        }
+    }

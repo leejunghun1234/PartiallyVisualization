@@ -21,6 +21,8 @@ export function initPartialClipping(scene, meshDict, timeJson, timeKeys, allGrou
         });
 
         copied.visible = true;
+        copied.Id = groups.Id;
+        copied.userData = groups.userData;
         scene.add(copied);
         latestElem.push(copied);
     }
@@ -161,6 +163,8 @@ export function initPartialClipping(scene, meshDict, timeJson, timeKeys, allGrou
             groups.visible = true;
         }
     }
+
+    return { planes, cons, helpers, latestElem };
 }
 
 function MakeBox() {
