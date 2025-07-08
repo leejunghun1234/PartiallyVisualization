@@ -17,7 +17,6 @@ export function sliderControls(sliderName, timeKeys, timeJson, allGroup, meshDic
         "Windows": false,
         "Doors": false,
     }
-    console.log(timeJson);
     updateMeshes(currentTime);
     
     slider.removeEventListener('input', sliderEvent);

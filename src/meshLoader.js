@@ -50,6 +50,7 @@ export function loadMeshes(jsonData, scene, scaleFactor = 0.5) {
             meshGroup.add(mesh);
         }
         scene.add(meshGroup);
+        meshGroup.Id = elementId;
         meshGroup.userData = meshes.Info;
         meshGroup.visible = false;
         meshGroup.name = elementId;

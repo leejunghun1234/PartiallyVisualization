@@ -105,6 +105,10 @@ export function main(
 
         ({meshDict2, uniqueData, allGroup2, valiableElemId } = DoneButtonClick(box3, allGroup, latestElem, timeLog, timeKeys))
         const newTimeKeys = Object.keys(uniqueData);
+        console.log(meshDict2)
+        console.log(uniqueData);
+        console.log(allGroup2);
+        console.log(valiableElemId);
         sliderControls("partially-slider", newTimeKeys, uniqueData, allGroup2, meshDict2, true);
     });
 

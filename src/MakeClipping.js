@@ -26,9 +26,6 @@ export function MakeClipping(latestElem, allGroup,planes, inversePlanes, inside)
             }
         }
     } else {
-        console.log(inside);
-        console.log(planes);
-        console.log(inversePlanes);
         for (let i = 0; i < latestElem.length; i++) {
             const group = latestElem[i];
             group.visible = true;
@@ -38,7 +35,6 @@ export function MakeClipping(latestElem, allGroup,planes, inversePlanes, inside)
                     object.material.clippingPlanes = planes;
                     object.material.clipIntersection = true;
                     object.material.needsUpdate = true;
-                    console.log(object);
                 }
             }
         }
