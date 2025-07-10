@@ -51,7 +51,7 @@ export function getPlanes(box, scene) {
         const con = createNormalMarkerAtPlane(planes[i], inversePlanes[i], center, scene);
         cons.push(con);
     }
-
+    
     return { planes, inversePlanes, cons, helpers };
 }
 

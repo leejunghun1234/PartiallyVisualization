@@ -92,8 +92,8 @@ export function initPartialClipping(scene, meshDict, timeJson, timeKeys, allGrou
     }
 
     renderer.localClippingEnabled = true;
-    MakeClipping(latestElem, allGroup, planes, inversePlanes, true);
-
+    MakeClipping(latestElem, allGroup, planes, inversePlanes);
+    
     const insideButton = document.getElementById("inside-button");
     const outsideButton = document.getElementById("outside-button");
     const planeButton = document.getElementById("plane-button");
@@ -129,7 +129,6 @@ export function initPartialClipping(scene, meshDict, timeJson, timeKeys, allGrou
         } else {
             outsideButton.style.backgroundColor = "#263238";
         }
-        
     });
 
     planeButton.addEventListener("click", () => {

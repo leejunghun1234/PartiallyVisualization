@@ -126,9 +126,10 @@ html, body {
 #before-div {
     display: block; /* 처음엔 숨김 */
     position: absolute;
+    overflow-y: auto;
     top: 85px;
     right: 425px; /* right-panel 너비만큼 오른쪽에서 떨어지게 */
-    width: 300px;
+    width: 310px;
     height: calc(100% - 315px);
     background-color: rgba(255, 255, 200, 0.95);
     border: 2px solid #aaa;

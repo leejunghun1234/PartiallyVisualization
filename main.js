@@ -84,8 +84,23 @@ export function main(
     const { allGroup, meshDict } = loadMeshes(shapeLog, scene, 0.2);
     const timeKeys = Object.keys(timeLog).sort();
     
-    const {planes, cons, helpers, latestElem } = initPartialClipping(scene, meshDict, timeLog, timeKeys, allGroup, renderer, camera, controls);
-    sliderControls("partially-slider", timeKeys, timeLog, allGroup, meshDict, false);
+    const { planes, cons, helpers, latestElem } = initPartialClipping(scene, meshDict, timeLog, timeKeys, allGroup, renderer, camera, controls);
+    
+    let buttonState = {
+        "Walls": false,
+        "Curtain Walls": false,
+
+
+        "Floors": false,
+        "Ceilings": false,
+        "Columns": false,
+        "Structural Columns": false,
+        "Stairs": false,
+        "Railings": false,
+        "Windows": false,
+        "Doors": false,
+    }
+    sliderControls("partially-slider", timeKeys, timeLog, allGroup, meshDict, buttonState, false);
 
     const doneButton = document.getElementById("done-button");
     let uniqueData;
@@ -105,13 +120,10 @@ export function main(
 
         ({meshDict2, uniqueData, allGroup2, valiableElemId } = DoneButtonClick(box3, allGroup, latestElem, timeLog, timeKeys))
         const newTimeKeys = Object.keys(uniqueData);
-        console.log(meshDict2)
-        console.log(uniqueData);
-        console.log(allGroup2);
-        console.log(valiableElemId);
-        sliderControls("partially-slider", newTimeKeys, uniqueData, allGroup2, meshDict2, true);
-    });
 
+        sliderControls("partially-slider", newTimeKeys, uniqueData, allGroup2, meshDict2, buttonState, true);
+    });
+    
     animate();
 
     function animate() {

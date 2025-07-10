@@ -8,6 +8,7 @@ export function DoneButtonClick(box3, allGroup, latestElem, timeData, timeKeys) 
 
     const infoTarget0 = document.getElementById("before-target");
     updatesInfos0(infoTarget0, timeInfo0);
+    console.log(infoTarget0);
 
     const meshDict2 = {};
     const allGroup2 = [];
@@ -123,7 +124,7 @@ export function DoneButtonClick(box3, allGroup, latestElem, timeData, timeKeys) 
         const value1 = key[1];
 
         const serializedValue = JSON.stringify(value1);
-        
+
         if (seenValues === undefined) {
             uniqueData[key1] = value1;
         } else {
