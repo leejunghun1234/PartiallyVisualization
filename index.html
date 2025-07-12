@@ -153,20 +153,37 @@
             }
         });
     </script>
+
     <script>
-        // slider update
-        const sliderPartially = document.getElementById("partially-slider");
-        
-        function updateSliderBackground(slider) {
-            const min = slider.min || 0;
-            const max = slider.max || 100;
-            const val = (slider.value - min) / (max - min) * 100;
-            slider.style.background = `linear-gradient(to right, #263238 0%, #45a049 ${val}%, #ddd ${val}%, #ddd 100%)`;
+        let isSyncing = false;
+
+        function syncScroll(source, targets) {
+            source.addEventListener("scroll", () => {
+                if (isSyncing) return;
+                isSyncing = true;
+
+                
+
+
+                const scrollTop = source.scrollTop;
+                targets.forEach(t => t.scrollTop = scrollTop);
+
+                console.log(infoTarget2.scrollTop);
+                console.log(infoTarget.scrollTop);
+                console.log(infoTarget3.scrollTop);
+
+                isSyncing = false;
+            });
         }
 
-        sliderPartially.addEventListener("input", () => updateSliderBackground(sliderPartially));
+        const infoTarget = document.getElementById("info-target");
+        const infoTarget2 = document.getElementById("element-target");
+        const infoTarget3 = document.getElementById("before-div");
+
+        syncScroll(infoTarget, [infoTarget2, infoTarget3]);
+        syncScroll(infoTarget2, [infoTarget, infoTarget3]);
+        syncScroll(infoTarget3, [infoTarget, infoTarget2]);
         
-        updateSliderBackground(sliderPartially);
     </script>
 </body>
 </html>

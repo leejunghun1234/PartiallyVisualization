@@ -4,7 +4,10 @@ import { loadMeshes } from "./src/meshLoader.js";
 import { initPartialClipping } from "./src/initPartial.js";
 import { sliderControls } from "./src/slider.js";
 import { DoneButtonClick } from "./src/done.js";
+import { rightPanelButtonClick } from "./src/rightPanelButton.js";
 
+import { updateSliderBackground } from './src/updateSlideColor.js';
+        
 export function main(
     shapeLog,
     timeLog
@@ -73,7 +76,10 @@ export function main(
     });
     resizeObserver.observe(container);
 
-
+    // slider update
+    const sliderPartially = document.getElementById("partially-slider");
+    sliderPartially.addEventListener("input", () => updateSliderBackground(sliderPartially));
+    
     // .d8888. d888888b .88b  d88. d8888b. db      d88888b      .d8888. d88888b d888888b d888888b d888888b d8b   db  d888b       d88888b d8b   db d8888b. .d8888. 
     // 88'  YP   `88'   88'YbdP`88 88  `8D 88      88'          88'  YP 88'     `~~88~~' `~~88~~'   `88'   888o  88 88' Y8b      88'     888o  88 88  `8D 88'  YP 
     // `8bo.      88    88  88  88 88oodD' 88      88ooooo      `8bo.   88ooooo    88       88       88    88V8o 88 88           88ooooo 88V8o 88 88   88 `8bo.   
@@ -83,14 +89,12 @@ export function main(
 
     const { allGroup, meshDict } = loadMeshes(shapeLog, scene, 0.2);
     const timeKeys = Object.keys(timeLog).sort();
-    
+
     const { planes, cons, helpers, latestElem } = initPartialClipping(scene, meshDict, timeLog, timeKeys, allGroup, renderer, camera, controls);
-    
+    console.log(latestElem);
     let buttonState = {
         "Walls": false,
         "Curtain Walls": false,
-
-
         "Floors": false,
         "Ceilings": false,
         "Columns": false,
@@ -100,7 +104,9 @@ export function main(
         "Windows": false,
         "Doors": false,
     }
+
     sliderControls("partially-slider", timeKeys, timeLog, allGroup, meshDict, buttonState, false);
+    updateSliderBackground(sliderPartially);
 
     const doneButton = document.getElementById("done-button");
     let uniqueData;
@@ -109,6 +115,8 @@ export function main(
     let valiableElemId;
 
     doneButton.addEventListener('click', () => {
+        updateSliderBackground(sliderPartially);
+
         let box3 = makeBoxFromPlanes(planes);
 
         cons.forEach(e => {
@@ -122,6 +130,7 @@ export function main(
         const newTimeKeys = Object.keys(uniqueData);
 
         sliderControls("partially-slider", newTimeKeys, uniqueData, allGroup2, meshDict2, buttonState, true);
+        rightPanelButtonClick(buttonState);
     });
     
     animate();
@@ -165,5 +174,5 @@ export function main(
         const box0 = new THREE.Box3(min, max);
         
         return box0;
-        }
     }
+}

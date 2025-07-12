@@ -10,7 +10,7 @@ export function updatesInfos0(infoTarget0, timeInfo0) {
 
         let catNameDiv = document.createElement("div");
         catNameDiv.classList.add("category-name-container");
-        catNameDiv.innerHTML = `<div id = "category-title" class="category-title">${cat}</div>`;
+        catNameDiv.innerHTML = `<div id = "category-title" class="category-title-1">${cat}</div>`;
         categoryDiv.appendChild(catNameDiv);
 
         let list = document.createElement("ul");
@@ -19,6 +19,7 @@ export function updatesInfos0(infoTarget0, timeInfo0) {
         list.id = `${catReplace}-list-1`;
 
         let importantInfo = document.createElement("div");
+        importantInfo.classList.add("main-quant-div");
         for (const quantityCatQuan of quantityCat) {
             let value = timeInfo0[cat][quantityCatQuan];
             if (quantityCatQuan === "All Volume"
@@ -28,16 +29,16 @@ export function updatesInfos0(infoTarget0, timeInfo0) {
                 || quantityCatQuan === "Stair Length"
                 || quantityCatQuan === "Railing Length"
             ) {
-                importantInfo.innerHTML += `<span class="key1234">${quantityCatQuan}: </span> <span id = "value123" class = "value123">${(value).toFixed(3)} </span> `;
+                importantInfo.innerHTML += `<span class="key1234">${quantityCatQuan}: </span> <br> <span id = "value123" class = "value123">${(value).toFixed(3)} </span> <br>`;
             } else if (quantityCatQuan === "All Numbers") {
-                importantInfo.innerHTML += `<span class="key1234">${quantityCatQuan}: </span> <span id = "value123" class = "value123">${value} </span> `
+                importantInfo.innerHTML += `<span class="key1234">${quantityCatQuan}: </span> <br> <span id = "value123" class = "value123">${value} </span> <br>`
             } else if (["Windows", "Doors"].includes(cat)){
                 let listItem = document.createElement("li");
-                listItem.innerHTML = `<span class="key123">${quantityCatQuan}: </span> <span id = "value123" class = "value123">${(timeInfo0[cat][quantityCatQuan])} </span> `;
+                listItem.innerHTML = `<span class="key123">${quantityCatQuan}: </span> <br> <span id = "value123" class = "value123">${(timeInfo0[cat][quantityCatQuan])} </span> `;
                 list.appendChild(listItem);
             } else {
                 let listItem = document.createElement("li");
-                listItem.innerHTML = `<span class="key123">${quantityCatQuan}: </span> <span id = "value123" class = "value123">${(timeInfo0[cat][quantityCatQuan]).toFixed(3)} </span> `;
+                listItem.innerHTML = `<span class="key123">${quantityCatQuan}: </span> <br> <span id = "value123" class = "value123">${(timeInfo0[cat][quantityCatQuan]).toFixed(3)} </span> `;
                 list.appendChild(listItem);
             }
         }

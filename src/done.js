@@ -8,7 +8,11 @@ export function DoneButtonClick(box3, allGroup, latestElem, timeData, timeKeys) 
 
     const infoTarget0 = document.getElementById("before-target");
     updatesInfos0(infoTarget0, timeInfo0);
-    console.log(infoTarget0);
+
+    const latestElemId = [];
+    for (const lm of latestElem) {
+        latestElemId.push(lm.Id);
+    }
 
     const meshDict2 = {};
     const allGroup2 = [];
@@ -17,29 +21,16 @@ export function DoneButtonClick(box3, allGroup, latestElem, timeData, timeKeys) 
         const boxMesh = new THREE.Box3().setFromObject(group);
 
         if (box3.containsBox(boxMesh) || box3.intersectsBox(boxMesh)) {
-            if (latestElem.includes(group)) {
-                latestElem = latestElem.filter(item => item !== group);
+            if (latestElemId.includes(group.Id)) {
+                latestElem = latestElem.filter(item => item.Id !== group.Id);
             }
 
             const elementid = group.Id;
-            const meshGroup = new THREE.Group;
-            let checker = 0;
-            for (let j = 0; j < group.children.length; j++) {
-                const object = group.children[j];
-                if (object.isMesh) {
-                    checker = 1;
-                    
-                    meshGroup.add(object);
-                }
-            }
-            if (checker === 1) {
-                meshDict2[elementid] = meshGroup;
-                allGroup2.push(meshGroup);
-            }
-            meshGroup.userData = group.userData;
+            meshDict2[elementid] = group;
+            allGroup2.push(group);
         }
     }
-
+    
     const timeInfo = {
         "Walls": {},
         "Curtain Walls": {},
@@ -70,7 +61,6 @@ export function DoneButtonClick(box3, allGroup, latestElem, timeData, timeKeys) 
     const finalTimeDict = {};
     let checker2 = 0;
     timeKeys.forEach(k => {
-        console.log(k);
         const tData = timeData[k]["Elements"];
         const timeInfoCopy = structuredClone(timeInfo);
         if (checker2 === 0) {
@@ -115,14 +105,11 @@ export function DoneButtonClick(box3, allGroup, latestElem, timeData, timeKeys) 
         }
     });
 
-    console.log(finalTimeDict);
-
     const uniqueData = {};
     let seenValues = undefined;
     Object.entries(finalTimeDict).forEach((key, value) => {
         const key1 = key[0];
         const value1 = key[1];
-
         const serializedValue = JSON.stringify(value1);
 
         if (seenValues === undefined) {
@@ -133,11 +120,9 @@ export function DoneButtonClick(box3, allGroup, latestElem, timeData, timeKeys) 
             } else {
 
             }
-            seenValues = serializedValue;
         }
+        seenValues = serializedValue;
     });
-
-    console.log(uniqueData);
 
     // meshDict2: elementId 를 key값으로, Group을 value로 가지는 Dictionary
     // uniqueData: Time log를 원하는 element 만 가지고 할 수 있는거 -> 중복 제거거

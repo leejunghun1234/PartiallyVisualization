@@ -29,7 +29,7 @@ export function initPartialClipping(scene, meshDict, timeJson, timeKeys, allGrou
 
     const box = MakeBox();
     const { planes, inversePlanes, cons, helpers } = getPlanes(box, scene);
-
+    
     let draggingCone = null;
     let dragStartPoint = new THREE.Vector3();
     const raycaster = new THREE.Raycaster();
@@ -167,7 +167,7 @@ export function initPartialClipping(scene, meshDict, timeJson, timeKeys, allGrou
 }
 
 function MakeBox() {
-    const boxGeometry = new THREE.BoxGeometry(10, 10, 10);
+    const boxGeometry = new THREE.BoxGeometry(100, 100, 100);
     const boxMaterial = new THREE.MeshStandardMaterial({
         color: 0x00ff00,
         transparent: true,

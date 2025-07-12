@@ -7,6 +7,7 @@ export function MakeClipping(latestElem, allGroup, planes, inversePlanes) {
         for (let a = 0; a < group.children.length; a++) {
             const object = group.children[a];
             if (object.isMesh || object.isLine) {
+                object.material = object.material.clone();
                 object.material.clippingPlanes = planes;
                 object.material.clipIntersection = true;
                 object.material.needsUpdate = true;
