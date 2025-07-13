@@ -3,6 +3,12 @@ export function sliderControls(sliderName, timeKeys, timeJson, allGroup, meshDic
     slider.max = timeKeys.length - 1;
     slider.value = timeKeys.length - 1;
     const currentTime = timeKeys[timeKeys.length - 1];
+    const parts = currentTime.split("_");
+    const formattedDate = `${String(parseInt(parts[2])).padStart(2, '0')}/${String(parseInt(parts[1])).padStart(2, '0')}/${parts[0]}\n`
+        + `${String(parseInt(parts[3])).padStart(2, '0')}:${String(parseInt(parts[4])).padStart(2, '0')}:${String(parseInt(parts[5])).padStart(2, '0')}`;
+    const display = document.getElementById("time-button");
+    display.textContent = formattedDate;
+
     console.log(Object.keys(timeJson[Object.keys(timeJson)[0]]).includes("Compare"));
     updateMeshes(currentTime);
 
@@ -20,6 +26,11 @@ export function sliderControls(sliderName, timeKeys, timeJson, allGroup, meshDic
     function sliderEvent(slider, timeKeys, uniqueData, allGroup, meshDict, buttonState, isPartial, num) {
         const currentIndex = parseInt(slider.value, 10);
         const currentTime = timeKeys[currentIndex];
+        const parts = currentTime.split("_");
+        const formattedDate = `${String(parseInt(parts[2])).padStart(2, '0')}/${String(parseInt(parts[1])).padStart(2, '0')}/${parts[0]}\n`
+            + `${String(parseInt(parts[3])).padStart(2, '0')}:${String(parseInt(parts[4])).padStart(2, '0')}:${String(parseInt(parts[5])).padStart(2, '0')}`;
+        
+        display.textContent = formattedDate;
     
         updateMeshes(currentTime);
         if (isPartial) {

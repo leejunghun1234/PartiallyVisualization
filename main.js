@@ -7,6 +7,7 @@ import { DoneButtonClick } from "./src/done.js";
 import { rightPanelButtonClick } from "./src/rightPanelButton.js";
 
 import { updateSliderBackground } from './src/updateSlideColor.js';
+import { exportButtonEventHandler } from "./src/exportButtonEventHandler.js";
         
 export function main(
     shapeLog,
@@ -131,6 +132,15 @@ export function main(
 
         sliderControls("partially-slider", newTimeKeys, uniqueData, allGroup2, meshDict2, buttonState, true);
         rightPanelButtonClick(buttonState);
+        
+        const exportButton = document.getElementById("export-button");
+        exportButton.addEventListener('click', () => {
+            exportButtonEventHandler(valiableElemId);
+        });
+
+        doneButton.remove();
+        const pb = document.getElementById("plane-button");
+        pb.remove();
     });
     
     animate();
