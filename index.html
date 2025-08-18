@@ -108,8 +108,8 @@
                     if (name.endsWith('.json')) {
                         try {
                             const json = await LoadJson(file);
-                            if (name.includes("shapeLogs")) shapeLog = json;
-                            if (name.includes("timeLogs")) timeLog = json;
+                            if (name.includes("SL")) shapeLog = json;
+                            if (name.includes("TL")) timeLog = json;
                         } catch (err) {
                             console.error(`JSON 파싱 실패: ${name}`);
                         }
