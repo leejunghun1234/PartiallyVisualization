@@ -3,7 +3,7 @@ import * as THREE from 'three';
 export function loadMeshes(jsonData, scene, scaleFactor = 0.5) {
     const meshDict = {};
     const allGroup = [];
-    
+    console.log(jsonData)
     for (const meshes of jsonData) {
         if (meshes.CommandType == "D") continue;
         const meshInfo = meshes.Info;
