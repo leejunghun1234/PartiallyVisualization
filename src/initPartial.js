@@ -167,7 +167,7 @@ export function initPartialClipping(scene, meshDict, timeJson, timeKeys, allGrou
 }
 
 function MakeBox() {
-    const boxGeometry = new THREE.BoxGeometry(100, 100, 100);
+    const boxGeometry = new THREE.BoxGeometry(10, 10, 10);
     const boxMaterial = new THREE.MeshStandardMaterial({
         color: 0x00ff00,
         transparent: true,
